@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CartPage {
 
@@ -17,8 +21,14 @@ public class CartPage {
     @FindBy(className = "cart-empty")
     private WebElement emptyCartMsg;
 
-    public boolean isCartEmptyMessageDisplayed() {
-        return emptyCartMsg.isDisplayed();
+    public boolean isEmptyCartMessageDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        try {
+            wait.until(ExpectedConditions.visibilityOf(emptyCartMsg));
+            return emptyCartMsg.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String getEmptyCartMsgTxt(){

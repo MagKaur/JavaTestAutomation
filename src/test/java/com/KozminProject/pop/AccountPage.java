@@ -32,18 +32,7 @@ public class AccountPage {
     private WebElement errorMessage;
 
 
-   public boolean isEmailRegisterFieldPresent(){
-        return emailRegisterField.isDisplayed();
-    }
-   public boolean isPassRegisterFieldPresent(){
-        return passRegisterField.isDisplayed();
-    }
-    public boolean isRegisterButtonPresent(){
-        return registerButton.isDisplayed();
-    }
-    public void clickRegButton(){
-        registerButton.click();
-    }
+
 
     public void enterEmailInRegisterField(String EMAIL) {
         emailRegisterField.clear(); // Wyczyszczenie pola przed wprowadzeniem tekstu
@@ -55,8 +44,11 @@ public class AccountPage {
         passRegisterField.sendKeys(PASSWORD);
     }
 
+    public void clickRegButton(){
+        registerButton.click();
+    }
     public boolean isErrorMsgDisplayed(){
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             try {
                 wait.until(ExpectedConditions.visibilityOf(errorMessage));
                 return errorMessage.isDisplayed();
@@ -65,11 +57,8 @@ public class AccountPage {
             }
         }
 
-
     public String getErrorMessage() {
         return errorMessage.getText();
     }
 
-    //TODO insert pwassword and email methods
-    //TODO selector, methods for failed account register.
 }

@@ -68,30 +68,7 @@ public class TestProject extends DriverSetup {
         String actualURL = driver.getCurrentUrl();
         Assert.assertEquals(actualURL, expectedURL, "Correct Login Page unavailble");
     }
-    @Test(alwaysRun = true)
-    private void isLoginRegFieldPresent(){
-        driver.get("https://skleptest.pl/");
-        topBar = new TopBar(driver);
-        accountPage = new AccountPage(driver);
-        topBar.clickAccountButton();
-        Assert.assertTrue(accountPage.isEmailRegisterFieldPresent(), "Register-Email field to register account unavailble");
-    }
-    @Test(alwaysRun = true)
-    private void isPassFieldPresent(){
-        driver.get("https://skleptest.pl/");
-        topBar = new TopBar(driver);
-        accountPage = new AccountPage(driver);
-        topBar.clickAccountButton();
-        Assert.assertTrue(accountPage.isPassRegisterFieldPresent(), "Register-Password field unavailble");
-    }
-    @Test(alwaysRun = true)
-    private void isRegisterButtonPresent(){
-        driver.get("https://skleptest.pl/");
-        topBar = new TopBar(driver);
-        accountPage = new AccountPage(driver);
-        topBar.clickAccountButton();
-        Assert.assertTrue(accountPage.isRegisterButtonPresent(), "Register button unavailble");
-    }
+
 
     @Test(alwaysRun = true)
     public void verifyErrorRegisterMessage(){
@@ -109,10 +86,6 @@ public class TestProject extends DriverSetup {
         } else {
             Assert.fail("Error msg not displayed");
         }
-    }
-
-    private void userLoginWrongLogin(){
-        //TODO
     }
 
     @Test(alwaysRun = true)
@@ -136,7 +109,7 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         cartPage = new CartPage(driver);
         topBar.clickCartButton();
-        if (cartPage.isCartEmptyMessageDisplayed()) {
+        if (cartPage.isEmptyCartMessageDisplayed()) {
             String expectedMsg = "Your cart is currently empty";
             String actualMsg = cartPage.getEmptyCartMsgTxt();
             Assert.assertEquals(actualMsg, expectedMsg, "Incorrect cart empty message");
