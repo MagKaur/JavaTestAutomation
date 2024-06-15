@@ -1,6 +1,7 @@
 package com.KozminProject;
 import com.KozminProject.pop.AccountPage;
 import com.KozminProject.pop.CartPage;
+import com.KozminProject.pop.SearchPage;
 import com.KozminProject.utils.DriverSetup;
 import com.KozminProject.pop.TopBar;
 import org.checkerframework.checker.units.qual.A;
@@ -14,8 +15,10 @@ public class TestProject extends DriverSetup {
     private TopBar topBar;
     private CartPage cartPage;
     private AccountPage accountPage;
+    private SearchPage searchPage;
     private static final String EMAIL  = "test.example.com";
     private static final String PASSWORD  = "astdELKJ823SDGll?!";
+    private String searchQuery = "fabric";
 
     @Test(alwaysRun = true)
     private void isContactFieldPresent() {
@@ -48,8 +51,16 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isSearchButtonPresent());
     }
 
-    private void isSearchResultPresent(){
-        //TODO
+    @Test(alwaysRun = true)
+    private void howManySearchResultsPresent(){
+            driver.get("https://skleptest.pl/");
+            topBar = new TopBar(driver);
+            searchPage = new SearchPage(driver);
+            topBar.insertSearchQuery(searchQuery);
+            topBar.clickSearchButton();
+            int expectedCount = 10;
+            int actualCount = searchPage.countResults();
+            Assert.assertEquals(actualCount,expectedCount,"Search count not equal to data base count");
     }
 
 
@@ -96,7 +107,7 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isCartLinkIsPresent());
     }
     @Test(alwaysRun = true)
-    private void isCartPageOpens(){
+    private void isCorrectCartPageLinkOpens(){
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
         topBar.clickCartButton();

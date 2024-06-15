@@ -69,6 +69,11 @@ public class TopBar {
         }
     }
 
+    public void insertSearchQuery(String searchQuery){
+            searchField.clear();
+            searchField.sendKeys(searchQuery);
+    }
+
     public void clickSearchButton () {
         searchButton.click();
     }
