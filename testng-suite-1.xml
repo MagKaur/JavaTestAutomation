@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PostDiplomaProjectFullTest" verbose="1">
+    <test name="FullTopBarAutomationTest" preserve-order="true" enabled="true">
+        <classes>
+           <class name="com.KozminProject.TestProject"/>
+        </classes>
+    </test>
+</suite>
