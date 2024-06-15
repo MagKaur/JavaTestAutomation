@@ -29,5 +29,5 @@ public class SearchPage {
         return resultlist.size();
     }
 
-    //TODO locators and methods for searched list
+
 }
