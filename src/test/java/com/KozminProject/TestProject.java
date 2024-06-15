@@ -121,6 +121,7 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         Assert.assertTrue(topBar.isCartLinkIsPresent(), "Expected: Cart button present in top bar");
     }
+
     @Test(alwaysRun = true)
     private void isCorrectCartPageOpens(){
         driver.get("https://skleptest.pl/");
