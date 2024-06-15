@@ -45,13 +45,14 @@ public class TestProject extends DriverSetup {
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
         accountPage = new AccountPage(driver);
+        Assert.assertTrue(topBar.isSearchButtonPresent());
     }
 
     private void isSearchResultPresent(){
         //TODO
     }
 
-    //TODO zweryfikować wszytstkie testy z displayed!!! -> catch exceptions zrobić?
+
 
     @Test(alwaysRun = true)
     private void isAccountButtonPresent() {
@@ -94,12 +95,14 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         Assert.assertTrue(topBar.isCartLinkIsPresent());
     }
+    @Test(alwaysRun = true)
     private void isCartPageOpens(){
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
+        topBar.clickCartButton();
         String expectedURL = "https://skleptest.pl/cart/";
         String actualURL = driver.getCurrentUrl();
-        Assert.assertEquals(actualURL, expectedURL, "orrect Cart Page unavailble");
+        Assert.assertEquals(actualURL, expectedURL, "Correct Cart Page unavailble");
     }
 
 
