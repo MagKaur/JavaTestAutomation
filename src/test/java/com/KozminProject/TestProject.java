@@ -138,12 +138,16 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         cartPage = new CartPage(driver);
         topBar.clickCartButton();
-        if (cartPage.isEmptyCartMessageDisplayed()) {
-            String expectedMsg = "Your cart is currently empty";
-            String actualMsg = cartPage.getEmptyCartMsgTxt();
-            Assert.assertEquals(actualMsg, expectedMsg, "Incorrect cart empty message");
-        } else {
-            Assert.fail("Expected: Empty cart msg displayed");
+        if(!cartPage.isCartFull()){
+            if (cartPage.isEmptyCartMessageDisplayed()) {
+                String expectedMsg = "Your cart is currently empty";
+                String actualMsg = cartPage.getEmptyCartMsgTxt();
+                Assert.assertEquals(actualMsg, expectedMsg, "Incorrect cart empty message");
+            } else {
+                Assert.fail("Expected: Empty cart msg displayed");
+            }
+        } else{
+            Assert.fail("Cart is not empty");
         }
     }
 }

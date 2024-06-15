@@ -21,6 +21,18 @@ public class CartPage {
     @FindBy(className = "cart-empty")
     private WebElement emptyCartMsg;
 
+    @FindBy(css = "form.woocommerce-cart-form")
+    private WebElement productsInCartIndication;
+
+    public boolean isCartFull(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        try{
+            wait.until(ExpectedConditions.visibilityOf(productsInCartIndication));
+            return productsInCartIndication.isDisplayed();
+        } catch (Exception e){
+            return false;
+        }
+    }
     public boolean isEmptyCartMessageDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
