@@ -31,6 +31,9 @@ public class AccountPage {
     @FindBy(css = "ul.woocommerce-error li")
     private WebElement errorMessage;
 
+    @FindBy(css = "div.woocommerce-MyAccount-content")
+    private WebElement userLoggedInIndication;
+
 
 
 
@@ -59,6 +62,16 @@ public class AccountPage {
 
     public String getErrorMessage() {
         return errorMessage.getText();
+    }
+
+    public boolean isUserIsLoggedIn(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        try{
+            wait.until(ExpectedConditions.visibilityOf(userLoggedInIndication));
+            return userLoggedInIndication.isDisplayed();
+        } catch (Exception e){
+            return false;
+        }
     }
 
 }

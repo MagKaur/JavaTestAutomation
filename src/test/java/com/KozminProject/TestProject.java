@@ -7,6 +7,7 @@ import com.KozminProject.pop.TopBar;
 
 import com.KozminProject.utils.DriverSetup;
 
+import com.beust.ah.A;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -98,15 +99,19 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         accountPage = new AccountPage (driver);
         topBar.clickAccountButton();
-        accountPage.enterEmailInRegisterField(EMAIL);
-        accountPage.enterPassInRegisterField(PASSWORD);
-        accountPage.clickRegButton();
-        if(accountPage.isErrorMsgDisplayed()) {
-            String expectedErrorText = "Error: Please provide a valid email address.";
-            String actualErrorText = accountPage.getErrorMessage();
-            Assert.assertEquals(actualErrorText, expectedErrorText, "Error message incorrect");
-        } else {
-            Assert.fail("Expected: Error msg displayed");
+        if(!accountPage.isUserIsLoggedIn()) {
+            accountPage.enterEmailInRegisterField(EMAIL);
+            accountPage.enterPassInRegisterField(PASSWORD);
+            accountPage.clickRegButton();
+            if (accountPage.isErrorMsgDisplayed()) {
+                String expectedErrorText = "Error: Please provide a valid email address.";
+                String actualErrorText = accountPage.getErrorMessage();
+                Assert.assertEquals(actualErrorText, expectedErrorText, "Error message incorrect");
+            } else {
+                Assert.fail("Expected: Error msg displayed");
+            }
+        }else {
+            Assert.fail("User logged in");
         }
     }
 
