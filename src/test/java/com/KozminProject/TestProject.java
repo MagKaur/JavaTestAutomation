@@ -74,7 +74,7 @@ public class TestProject extends DriverSetup {
         topBar.insertSearchQuery(invalidSearchQuery);
         topBar.clickSearchButton();
         int actualCount = searchPage.countResults();
-        Assert.assertEquals(actualCount,0, "Expected: no search results");
+        Assert.assertEquals(actualCount,0, "Expected no search results");
     }
 
     @Test(alwaysRun = true)
@@ -108,7 +108,7 @@ public class TestProject extends DriverSetup {
                 String actualErrorText = accountPage.getErrorMessage();
                 Assert.assertEquals(actualErrorText, expectedErrorText, "Error message incorrect");
             } else {
-                Assert.fail("Expected: Error msg displayed");
+                Assert.fail("Error msg: Please provide a valid email address is not displayed");
             }
         }else {
             Assert.fail("User logged in");
