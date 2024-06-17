@@ -24,6 +24,10 @@ public class CartPage {
     @FindBy(css = "form.woocommerce-cart-form")
     private WebElement productsInCartIndication;
 
+    @FindBy(css = "a[href='https://skleptest.pl/checkout/']")
+    private WebElement proceedToCheckout;
+
+
     public boolean isCartFull(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try{
@@ -33,6 +37,8 @@ public class CartPage {
             return false;
         }
     }
+
+
     public boolean isEmptyCartMessageDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
@@ -45,5 +51,9 @@ public class CartPage {
 
     public String getEmptyCartMsgTxt(){
         return emptyCartMsg.getText();
+    }
+
+    public void clickProceedToCheckout(){
+        proceedToCheckout.click();
     }
 }

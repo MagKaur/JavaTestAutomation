@@ -1,13 +1,9 @@
 package com.KozminProject;
 
-import com.KozminProject.pop.AccountPage;
-import com.KozminProject.pop.CartPage;
-import com.KozminProject.pop.SearchPage;
-import com.KozminProject.pop.TopBar;
+import com.KozminProject.pop.*;
 
 import com.KozminProject.utils.DriverSetup;
 
-import com.beust.ah.A;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,10 +15,22 @@ public class TestProject extends DriverSetup {
     private CartPage cartPage;
     private AccountPage accountPage;
     private SearchPage searchPage;
-    private static final String EMAIL  = "test.example.com";
-    private static final String PASSWORD  = "astdELKJ823SDGll?!";
+    private HomePage homePage;
+    private CheckoutPage checkoutPage;
+    private OrderConfirmPage orderConfirmPage;
+    private static final String EMAIL = "test.example.com";
+    private static final String PASSWORD = "astdELKJ823SDGll?!";
     private String validSearchQuery = "fabric";
     private String invalidSearchQuery = "a";
+    private String name = "Monkey";
+    private String surname = "M";
+    private String countryName = "Poland";
+    private String adrress = "Crows 123";
+    private String townName = "Honolulu";
+    private String stateName = "Nebraska";
+    private String postCodeNumbers = "02567";
+    private String number = "5679879000";
+    private String emailAdd = "testmktest1@gmail.com";
 
     @Test(alwaysRun = true)
     private void isContactFieldPresent() {
@@ -56,25 +64,26 @@ public class TestProject extends DriverSetup {
     }
 
     @Test(alwaysRun = true)
-    private void howManySearchResultsPresent(){
-            driver.get("https://skleptest.pl/");
-            topBar = new TopBar(driver);
-            searchPage = new SearchPage(driver);
-            topBar.insertSearchQuery(validSearchQuery);
-            topBar.clickSearchButton();
-            int expectedCount = 10;
-            int actualCount = searchPage.countResults();
-            Assert.assertEquals(actualCount,expectedCount,"Search count not equal to data base result count");
+    private void howManySearchResultsPresent() {
+        driver.get("https://skleptest.pl/");
+        topBar = new TopBar(driver);
+        searchPage = new SearchPage(driver);
+        topBar.insertSearchQuery(validSearchQuery);
+        topBar.clickSearchButton();
+        int expectedCount = 10;
+        int actualCount = searchPage.countResults();
+        Assert.assertEquals(actualCount, expectedCount, "Search count not equal to data base result count");
     }
+
     @Test(alwaysRun = true)
-    private void verifyInvalidSearchQuery(){
+    private void verifyInvalidSearchQuery() {
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
         searchPage = new SearchPage(driver);
         topBar.insertSearchQuery(invalidSearchQuery);
         topBar.clickSearchButton();
         int actualCount = searchPage.countResults();
-        Assert.assertEquals(actualCount,0, "Expected no search results");
+        Assert.assertEquals(actualCount, 0, "Expected no search results");
     }
 
     @Test(alwaysRun = true)
@@ -83,6 +92,7 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         Assert.assertTrue(topBar.isAccountButtonPresent(), "Expected: Account button present in top bar");
     }
+
     @Test(alwaysRun = true)
     private void isCorrectAccountPageOpens() {
         driver.get("https://skleptest.pl/");
@@ -94,12 +104,12 @@ public class TestProject extends DriverSetup {
     }
 
     @Test(alwaysRun = true)
-    public void verifyErrorRegisterMessage(){
+    public void verifyErrorRegisterMessage() {
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
-        accountPage = new AccountPage (driver);
+        accountPage = new AccountPage(driver);
         topBar.clickAccountButton();
-        if(!accountPage.isUserIsLoggedIn()) {
+        if (!accountPage.isUserIsLoggedIn()) {
             accountPage.enterEmailInRegisterField(EMAIL);
             accountPage.enterPassInRegisterField(PASSWORD);
             accountPage.clickRegButton();
@@ -110,20 +120,20 @@ public class TestProject extends DriverSetup {
             } else {
                 Assert.fail("Error msg: Please provide a valid email address is not displayed");
             }
-        }else {
+        } else {
             Assert.fail("User logged in");
         }
     }
 
     @Test(alwaysRun = true)
-    private void isCartButtonPresent(){
+    private void isCartButtonPresent() {
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
         Assert.assertTrue(topBar.isCartLinkIsPresent(), "Expected: Cart button present in top bar");
     }
 
     @Test(alwaysRun = true)
-    private void isCorrectCartPageOpens(){
+    private void isCorrectCartPageOpens() {
         driver.get("https://skleptest.pl/");
         topBar = new TopBar(driver);
         topBar.clickCartButton();
@@ -139,7 +149,7 @@ public class TestProject extends DriverSetup {
         topBar = new TopBar(driver);
         cartPage = new CartPage(driver);
         topBar.clickCartButton();
-        if(!cartPage.isCartFull()){
+        if (!cartPage.isCartFull()) {
             if (cartPage.isEmptyCartMessageDisplayed()) {
                 String expectedMsg = "Your cart is currently empty";
                 String actualMsg = cartPage.getEmptyCartMsgTxt();
@@ -147,12 +157,46 @@ public class TestProject extends DriverSetup {
             } else {
                 Assert.fail("Expected: Empty cart msg displayed");
             }
-        } else{
+        } else {
             Assert.fail("Cart is not empty");
         }
     }
-}
 
+    @Test(alwaysRun = true)
+    public void e2eBuyTC() {
+        driver.get("https://skleptest.pl/");
+        topBar = new TopBar(driver);
+        cartPage = new CartPage(driver);
+        homePage = new HomePage(driver);
+        checkoutPage = new CheckoutPage(driver);
+        orderConfirmPage = new OrderConfirmPage(driver);
+        homePage.clickBlackTop35pln();
+        topBar.clickCartButton();
+        if (cartPage.isCartFull()) {
+            cartPage.clickProceedToCheckout();
+            checkoutPage.enterNameCheckout(name);
+            checkoutPage.enterSurnameCheckout(surname);
+            checkoutPage.selectCountry(countryName);
+            checkoutPage.enterAddressCheckout(adrress);
+            checkoutPage.enterTownCheckout(townName);
+            checkoutPage.enterPostCodeCheckout(postCodeNumbers);
+            checkoutPage.enterPhoneNumber(number);
+            checkoutPage.enterEmailCheckout(emailAdd);
+            checkoutPage.clickPaymentMethod();
+            checkoutPage.clickPlaceOrder();
+            if(orderConfirmPage.ifConfirmOrderElementDisplayed()){
+                String expectedTxt = "Order details";
+                String actualTxt = orderConfirmPage.OrderConfGetTxt();
+                Assert.assertEquals(actualTxt, expectedTxt, "Order Confirmation String is incorrect");
+            }else {
+                Assert.fail("Confirmation order unavailble");
+            }
+        } else {
+            Assert.fail("Cart is empty");
+        }
+    }
+
+}
 
 
 
