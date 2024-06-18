@@ -199,7 +199,7 @@ public class TestProject extends DriverSetup {
     }
 
     /***
-     * TC13: Produkt jest możliwy do kupienia
+     * TC13: Sprawdzenie możliwości zakupienia produktu
      ***/
     @Test(alwaysRun = true)
     public void e2eBuyTC() {
