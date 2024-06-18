@@ -198,7 +198,9 @@ public class TestProject extends DriverSetup {
         }
     }
 
-
+    /***
+     * TC13: Produkt jest możliwy do kupienia
+     ***/
     @Test(alwaysRun = true)
     public void e2eBuyTC() {
         driver.get("https://skleptest.pl/");
