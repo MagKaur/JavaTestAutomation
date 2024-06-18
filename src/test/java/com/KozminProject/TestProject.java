@@ -32,6 +32,9 @@ public class TestProject extends DriverSetup {
     private String number = "5679879000";
     private String emailAdd = "testmktest1@gmail.com";
 
+    /***
+     * TC1: Sprawdzenie obecności pola kontakt
+     ***/
     @Test(alwaysRun = true)
     private void isContactFieldPresent() {
         driver.get("https://skleptest.pl/");
@@ -39,6 +42,9 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isContactEmailPresent(), "Expected: Contact field present in top bar");
     }
 
+    /***
+     * TC2: Sprawdzenie poprawności adresu email w polu kontakt
+     ***/
     @Test(alwaysRun = true)
     private void isEmailContactValueCorrect() {
         driver.get("https://skleptest.pl/");
@@ -48,6 +54,9 @@ public class TestProject extends DriverSetup {
         Assert.assertEquals(actualContactValue, expectedContactValue, "Email in Contact field incorrect");
     }
 
+    /***
+     * TC3: Sprawdzenie obecności pola wyszukiwania
+     ***/
     @Test(alwaysRun = true)
     private void isSearchFieldPresent() {
         driver.get("https://skleptest.pl/");
@@ -55,6 +64,9 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isSearchFieldPresent(), "Expected: Search field present in top bar");
     }
 
+    /***
+     * TC4: Sprawdzenie obecności przycisku wyszukiwania
+     ***/
     @Test(alwaysRun = true)
     private void isSearchMagnifierPresent() {
         driver.get("https://skleptest.pl/");
@@ -63,6 +75,9 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isSearchButtonPresent(), "Expected: Search magnifier present in top bar");
     }
 
+    /***
+     * TC5: Sprawdzenie ilości wyników wyszukiwania
+     ***/
     @Test(alwaysRun = true)
     private void howManySearchResultsPresent() {
         driver.get("https://skleptest.pl/");
@@ -75,6 +90,9 @@ public class TestProject extends DriverSetup {
         Assert.assertEquals(actualCount, expectedCount, "Search count not equal to data base result count");
     }
 
+    /***
+     * TC6: Weryfikacja wyników niepoprawnego zapytania wyszukiwania
+     ***/
     @Test(alwaysRun = true)
     private void verifyInvalidSearchQuery() {
         driver.get("https://skleptest.pl/");
@@ -86,6 +104,9 @@ public class TestProject extends DriverSetup {
         Assert.assertEquals(actualCount, 0, "Expected no search results");
     }
 
+    /***
+     * TC7: Sprawdzenie obecności przycisku „Account” (konto)
+     ***/
     @Test(alwaysRun = true)
     private void isAccountButtonPresent() {
         driver.get("https://skleptest.pl/");
@@ -93,6 +114,9 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isAccountButtonPresent(), "Expected: Account button present in top bar");
     }
 
+    /***
+     * TC8: Sprawdzenie poprawności otwieranej strony „AccountPage” (konta)
+     ***/
     @Test(alwaysRun = true)
     private void isCorrectAccountPageOpens() {
         driver.get("https://skleptest.pl/");
@@ -103,6 +127,9 @@ public class TestProject extends DriverSetup {
         Assert.assertEquals(actualURL, expectedURL, "Expected: correct Account page url");
     }
 
+    /***
+     * TC9: Sprawdzenie wyświetlania błędu przy próbie rejestracji z błędnym adresem email
+     ***/
     @Test(alwaysRun = true)
     public void verifyErrorRegisterMessage() {
         driver.get("https://skleptest.pl/");
@@ -125,6 +152,9 @@ public class TestProject extends DriverSetup {
         }
     }
 
+    /***
+     * TC10: Sprawdzenie obecności przycisku „Cart” (koszyk)
+     ***/
     @Test(alwaysRun = true)
     private void isCartButtonPresent() {
         driver.get("https://skleptest.pl/");
@@ -132,6 +162,10 @@ public class TestProject extends DriverSetup {
         Assert.assertTrue(topBar.isCartLinkIsPresent(), "Expected: Cart button present in top bar");
     }
 
+
+    /***
+     * TC11: Sprawdzenie poprawności otwierania strony „CartPage” (kosz)
+     ***/
     @Test(alwaysRun = true)
     private void isCorrectCartPageOpens() {
         driver.get("https://skleptest.pl/");
@@ -142,7 +176,9 @@ public class TestProject extends DriverSetup {
         Assert.assertEquals(actualURL, expectedURL, "Expected: correct Cart Page url");
     }
 
-
+    /***
+     * TC12: Sprawdzenie wyświetlania informacji o pustym koszyku
+     ***/
     @Test(alwaysRun = true)
     private void isEmptyCartInfoCorrect() {
         driver.get("https://skleptest.pl/");
@@ -161,6 +197,7 @@ public class TestProject extends DriverSetup {
             Assert.fail("Cart is not empty");
         }
     }
+
 
     @Test(alwaysRun = true)
     public void e2eBuyTC() {

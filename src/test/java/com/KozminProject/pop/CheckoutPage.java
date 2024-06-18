@@ -89,7 +89,7 @@ public class CheckoutPage {
                 wait.until(ExpectedConditions.visibilityOf(paymentMethodCash));
                 paymentMethodCash.click();
             } catch (Exception e){
-                System.out.println("Chosen element didn't appear on a website");
+                System.out.println("Chosen payment element didn't appear on a website");
                 e.printStackTrace();
             }
 
